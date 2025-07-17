@@ -21,6 +21,9 @@ body {
     height: 500px;
     border-radius: 10px;
     aspect-ratio: 1;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
 }
 
 .options {
