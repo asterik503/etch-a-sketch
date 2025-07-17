@@ -1,0 +1,32 @@
+html {
+    height: 100%;
+    width: auto;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: auto;
+    gap: 50px;
+    background-color: #14213d;
+}
+
+.container {
+    border:red 2px solid;
+    width: 500px;
+    height: 500px;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 500px;
+}
+
+.options > *{
+    font-size: 35px;
+}
