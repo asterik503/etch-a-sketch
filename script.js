@@ -8,7 +8,7 @@ modes = {
 
 let canvasSize = [1,2,4,5,10,25,50]
 chosen = 0
-let brush = ""
+let brush = "white"
 let block
 function canvasSetter(){
     canvas.replaceChildren()
@@ -23,20 +23,39 @@ function canvasSetter(){
         block = document.createElement("div")
         block.style.cssText = `border: black 0.5px solid;
         height: ${heightAndWidth}; width: ${heightAndWidth};
-        box-sizing: border-box;`
+        box-sizing: border-box; background-color: white`
         block.classList.add("block")
         canvas.appendChild(block)
     }
+    blockevent(brush,0)
 }
 
 
 modes.normalMode.addEventListener("click", function(){
     brush = prompt("Enter desired color's hex value: ")
-    block = document.querySelector(".block")
-    block.addEventListener("click",function(){
-        block.style.cssText = `background-color: ${brush}`
-    })
-
+    blockevent(brush,0)
 })
 
 modes.canvasMode.addEventListener("click",canvasSetter)
+canvasSetter()
+function blockevent(color="",modal){
+    blocks = document.querySelectorAll(".block")
+    blocks.forEach(block => {
+    block.addEventListener("mouseover",function(){
+        if (modal == 0){
+             block.style.cssText += `background-color: ${color}`
+        }
+        else {
+            block.style.backgroundColor = `hsl(${Math.random()*360} ${Math.random()*100} ${Math.random()*100})`
+        }
+    })    
+});
+}
+
+modes.eraserMode.addEventListener("click",function(){
+    blockevent("white",0)
+})
+
+modes.randomMode.addEventListener("click",function(){
+    blockevent("random",1)
+})
