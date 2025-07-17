@@ -15,9 +15,12 @@ body {
 }
 
 .container {
-    border:red 2px solid;
+    border: #fca311 10px solid;
+    border-style: double;
     width: 500px;
     height: 500px;
+    border-radius: 10px;
+    aspect-ratio: 1;
 }
 
 .options {
@@ -29,4 +32,9 @@ body {
 
 .options > *{
     font-size: 35px;
+    font-family: Roboto;
+    background-color: #84a98c;
+    border-radius: 10px;
+    box-shadow: 5px 5px #52796f;
+    padding: 10px;
 }
