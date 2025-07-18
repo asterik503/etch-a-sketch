@@ -1,48 +1,26 @@
-const canvas = document.querySelector(".container")
-modes = {
-    normalMode : document.querySelector(".normal-mode"),
-    randomMode : document.querySelector(".random-mode"),
-    eraserMode : document.querySelector(".eraser-mode"),
-    canvasMode : document.querySelector(".canvas")
-}
-
-let canvasSize = [1,2,4,5,10,25,50]
-chosen = 0
-let brush = "white"
-let block
 function canvasSetter(){
-    canvas.replaceChildren()
-    if (chosen == 5){
-        chosen = 0
+    modes.container.replaceChildren()
+    if (canvasSize == 6){
+        canvasSize = 0
     }
     else {
-        chosen +=1
+        canvasSize +=1
     }
-    for (i=0;i<canvasSize[chosen]*canvasSize[chosen];i++){
-        heightAndWidth = `${500/canvasSize[chosen]}px`
-        block = document.createElement("div")
-        block.style.cssText = `border: black 0.5px solid;
-        height: ${heightAndWidth}; width: ${heightAndWidth};
-        box-sizing: border-box; background-color: white`
+    for (i=0;i<canvasSizeChoices[canvasSize]*canvasSizeChoices[canvasSize];i++){
+        heightAndWidth = `${500/canvasSizeChoices[canvasSize]}px`
+        let block = document.createElement("div")
+        block.style.cssText += `height: ${heightAndWidth}; width: ${heightAndWidth}px;`
         block.classList.add("block")
-        canvas.appendChild(block)
+        modes.container.appendChild(block)
     }
     blockevent(brush,0)
 }
 
-
-modes.normalMode.addEventListener("click", function(){
-    brush = prompt("Enter desired color's hex value: ")
-    blockevent(brush,0)
-})
-
-modes.canvasMode.addEventListener("click",canvasSetter)
-canvasSetter()
-function blockevent(color="",modal){
+function blockevent(color="",mode){
     blocks = document.querySelectorAll(".block")
     blocks.forEach(block => {
     block.addEventListener("mouseover",function(){
-        if (modal == 0){
+        if (mode == 0){
              block.style.cssText += `background-color: ${color}`
         }
         else {
@@ -51,11 +29,22 @@ function blockevent(color="",modal){
     })    
 });
 }
+modes = {
+    normalMode : document.querySelector(".normal-mode"),
+    randomMode : document.querySelector(".random-mode"),
+    eraserMode : document.querySelector(".eraser-mode"),
+    canvasMode : document.querySelector(".canvas"),
+    container : document.querySelector(".container")
+}
 
-modes.eraserMode.addEventListener("click",function(){
-    blockevent("white",0)
+const canvasSizeChoices = [1,2,4,5,10,25,50]
+let canvasSize = 0
+let brush = "white"
+modes.randomMode.addEventListener("click",blockevent)
+modes.canvasMode.addEventListener("click",canvasSetter)
+modes.normalMode.addEventListener("click", function(event){
+    brush = prompt("Enter desired color's hex value: ")
+    blockevent(brush,0)
 })
-
-modes.randomMode.addEventListener("click",function(){
-    blockevent("random",1)
-})
+modes.eraserMode.addEventListener("click",(event) => blockevent("white",0))
+canvasSetter()
